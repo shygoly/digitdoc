@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Electron All",
+      "configurations": ["Electron Main", "Electron Renderer"]
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Electron Main",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/electron",
+      "args": ["."],
+      "env": {
+        "NODE_ENV": "development",
+        "VITE_DEV_SERVER_URL": "https://localhost:5173"
+      },
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Electron Renderer",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9222,
+      "webRoot": "${workspaceFolder}/renderer",
+      "urlFilter": "https://localhost:5173/*"
+    }
+  ]
+}

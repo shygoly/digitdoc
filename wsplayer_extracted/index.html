@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<style>
+    html, body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    .state-module{
+        width: 100%;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        color: #fff;
+    }
+    .iconWrap{
+        position: absolute;
+        bottom: 0px;
+        right: 5px;
+        svg{
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+    }
+    .start-but{
+        width: 120px;
+        height: 40px;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 16px;
+        position: absolute;
+        top: calc(50% - 20px);
+        left: calc(50% - 60px);
+        z-index: 1000;
+        cursor: pointer;
+        background-color: rgb(64, 158, 255, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    .start-but:hover{
+        background-color: rgb(64, 158, 255, 0.9);
+    }
+</style>
+
+<body>
+    <!--预览界面-->
+    <div style="width:100%;height:100%; background-color: black; position: relative;" id="videoCot" >
+        <div class="start-but" id="startBut">开始播放</div>
+        <video id="videoFirstId1" autoplay style='width:100%;height:100%;object-fit: contain;'></video>
+        <div id="videoFirstErrorId1" class='state-module'></div>
+        <div class="iconWrap">
+            <svg id="playIcon" onclick="playVoice()" t="1712738383360" class="icon" viewBox="0 0 1462 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1048" width="34" height="34"><path d="M575.063192 45.332381L292.466976 292.466976h-182.79186a109.675116 109.675116 0 0 0-109.675116 109.675116v219.350232a109.675116 109.675116 0 0 0 109.675116 109.675116h182.79186l282.596216 247.134595A182.79186 182.79186 0 0 0 877.766512 840.842556V182.79186a182.79186 182.79186 0 0 0-302.70332-137.459479zM768.091396 842.304891a73.116744 73.116744 0 0 1-121.739379 54.837558L460.269904 731.16744l-2.193503-1.827918-55.934309-50.08497L337.433774 621.492324H146.599072a36.558372 36.558372 0 0 1-36.558372-36.558372v-146.233488a36.558372 36.558372 0 0 1 36.558372-36.558372h187.544448l67.998572-59.590146 244.575509-213.500893A73.116744 73.116744 0 0 1 768.091396 183.888611zM1284.661192 511.817208l162.319172-162.319172a55.056908 55.056908 0 0 0-78.234916-77.503748L1206.79186 434.313459l-162.319172-162.319171a54.837558 54.837558 0 0 0-77.503748 77.503748L1128.922528 511.817208l-161.953588 162.319172a54.837558 54.837558 0 0 0 77.503748 77.503749L1206.79186 589.320957l161.953588 162.319172a54.947233 54.947233 0 0 0 77.869332-77.503749z" p-id="1049" fill="#e6e6e6"></path></svg>       
+            <svg id="stopIcon" style="display: none;"  onclick="stopVoice()" t="1712739790411" class="icon" viewBox="0 0 1462 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1591" width="34" height="34"><path d="M1010.838986 3.655837a55.093467 55.093467 0 1 0-10.967512 109.675116 402.142092 402.142092 0 0 1 0 798.434845 55.093467 55.093467 0 1 0 10.967512 109.675116 511.817208 511.817208 0 0 0 0-1016.322742z" p-id="1592" fill="#e6e6e6"></path><path d="M991.828633 689.85648A54.471974 54.471974 0 0 0 950.517672 742.866119a54.837558 54.837558 0 0 0 66.901821 53.740807 292.466976 292.466976 0 0 0 0-569.579436A54.837558 54.837558 0 0 0 950.517672 280.768297a54.471974 54.471974 0 0 0 41.310961 53.009639 182.79186 182.79186 0 0 1 0 356.078544zM574.697608 45.332381L292.466976 292.466976H109.675116a109.675116 109.675116 0 0 0-109.675116 109.675116v219.350232a109.675116 109.675116 0 0 0 109.675116 109.675116h182.79186l282.230632 247.134595A182.79186 182.79186 0 0 0 877.400928 840.842556V182.79186a182.79186 182.79186 0 0 0-302.70332-137.459479zM767.725812 842.304891a73.116744 73.116744 0 0 1-121.739379 54.837558L459.90432 731.16744l-2.193502-1.827918L402.142092 679.254552 337.06819 621.492324H146.233488a36.558372 36.558372 0 0 1-36.558372-36.558372v-146.233488a36.558372 36.558372 0 0 1 36.558372-36.558372h187.910032L402.142092 342.551946l244.209925-213.500893A73.116744 73.116744 0 0 1 767.725812 183.888611z" p-id="1593" fill="#e6e6e6"></path></svg>        </ul>
+        </div>
+    </div>
+      <!-- <div id="operate" class="operate">
+        <div class="module">
+            <div class="module-title">第一步：</div>
+            <div class="item"><span class="label">服务IP：&nbsp;&nbsp;&nbsp;</span><input id="serverIP" type="text" value=""></div>
+            <div class="item"><span class="label">服务端口：</span><input id="serverPort" type="text" value=""></div>
+            <div class="item"><span class="label">用户名：&nbsp;&nbsp;&nbsp;</span><input id="userName" type="text" value=""></div>
+            <div class="item"><span class="label">密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input id="userPassword" type="text" value=""></div>
+            <div class="item" style="margin-top: 20px;margin-left: -20px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button style="width:20px;padding:0;margin:0;" id="login" class="btn">授权</button>
+                <button style="width:20px;padding:0;margin:0;" id="logOut" class="btn">退出</button>
+            </div>
+        </div>
+        <div class="module">
+            <div class="module-title">视频浏览：</div>
+            <font size="2" color=red>demo使用第一个窗口测试</font>
+            <div class="item"><span class="label">摄像头ID：</span><input id="cameraIndexCode" type="text" value=""></div>
+            <div class="item" style="margin-top: 20px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button style="width:20px;padding:0;margin:0;" id="startPreview" class="btn">预览</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button style="width:90px;padding:0;margin:0;" id="stopAllPreview" class="btn">停止全部预览</button>
+                <button style="padding:0;margin:0;" id="recordStartNew" class="btn">开始录像</button>
+                <button style="padding:0;margin:0;" id="recordEndNew" class="btn">结束录像</button>
+                <button style="width:20px;padding:0;margin:0;" id="openVoice" class="btn">声音开启</button>
+                <button style="width:20px;padding:0;margin:0;" id="closeVoice" class="btn">声音关闭</button>
+                button style="width:20px;padding:0;margin:0;" id="openTalk" class="btn">开启对讲</button>
+                <button style="width:20px;padding:0;margin:0;" id="closeTalk" class="btn">停止对讲</button>
+                <button style="width:20px;padding:0;margin:0;" id="mainStream" class="btn">主码流</button>
+                <button style="width:20px;padding:0;margin:0;" id="subStream" class="btn">子码流</button
+                <button style="width:20px;padding:0;margin:0;" id="wholeFull" class="btn">整体全屏</button>
+                <button style="width:20px;padding:0;margin:0;" id="exitWholeFull" class="btn">退出全屏</button> 
+                <button style="width:20px;padding:0;margin:0;" id="screenShot" class="btn">手动抓图</button>             
+            </div>
+        </div>
+        <div class="module">
+            <div class="module-title">多画面播放：</div>
+            <div class="item">
+                <label >参数：</label>
+                <textarea id="multiPlayParam" type="text" style="width:310px;height:280px;">
+[{
+    "cameraId": "32011500001310000002",
+    "videoId": "videoFirstId1",
+    "errorId": "videoFirstErrorId1"
+},
+{
+    "cameraId": "32011500001310000007",
+    "videoId": "videoFirstId2",
+    "errorId": "videoFirstErrorId2"
+},
+{
+    "cameraId": "32011500001310000017",
+    "videoId": "videoFirstId3",
+    "errorId": "videoFirstErrorId3"
+},
+{
+    "cameraId": "32011500001310000012",
+    "videoId": "videoFirstId4",
+    "errorId": "videoFirstErrorId4"
+},
+{
+    "cameraId": "32011500001310000015",
+    "videoId": "videoFirstId5",
+    "errorId": "videoFirstErrorId5"
+},
+{
+    "cameraId": "32011500001310000003",
+    "videoId": "videoFirstId6",
+    "errorId": "videoFirstErrorId6"
+},
+{
+    "cameraId": "32011500001310000008",
+    "videoId": "videoFirstId7",
+    "errorId": "videoFirstErrorId7"
+},
+{
+    "cameraId": "32011500001310000009",
+    "videoId": "videoFirstId8",
+    "errorId": "videoFirstErrorId8"
+},
+{
+    "cameraId": "32011500001310000010",
+    "videoId": "videoFirstId9",
+    "errorId": "videoFirstErrorId9"
+},
+{
+    "cameraId": "32011500001310000011",
+    "videoId": "videoFirstId10",
+    "errorId": "videoFirstErrorId10"
+},
+{
+    "cameraId": "32011500001310000005",
+    "videoId": "videoFirstId11",
+    "errorId": "videoFirstErrorId11"
+},
+{
+    "cameraId": "32011500001310000013",
+    "videoId": "videoFirstId12",
+    "errorId": "videoFirstErrorId12"
+},
+{
+    "cameraId": "32011500001310000014",
+    "videoId": "videoFirstId13",
+    "errorId": "videoFirstErrorId13"
+},
+{
+    "cameraId": "32011500001310000006",
+    "videoId": "videoFirstId14",
+    "errorId": "videoFirstErrorId14"
+},
+{
+    "cameraId": "32011500001310000004",
+    "videoId": "videoFirstId15",
+    "errorId": "videoFirstErrorId15"
+},
+{
+    "cameraId": "32011500001310000016",
+    "videoId": "videoFirstId16",
+    "errorId": "videoFirstErrorId16"
+},
+{
+    "cameraId": "13020000001310001068",
+    "videoId": "videoFirstId17",
+    "errorId": "videoFirstErrorId17"
+},
+{
+    "cameraId": "13020000001310001069",
+    "videoId": "videoFirstId18",
+    "errorId": "videoFirstErrorId18"
+},
+{
+    "cameraId": "13020000001310001070",
+    "videoId": "videoFirstId19",
+    "errorId": "videoFirstErrorId19"
+},
+{
+    "cameraId": "13020000001310001071",
+    "videoId": "videoFirstId20",
+    "errorId": "videoFirstErrorId20"
+},
+{
+    "cameraId": "13020000001310001072",
+    "videoId": "videoFirstId21",
+    "errorId": "videoFirstErrorId21"
+},
+{
+    "cameraId": "13020000001310001073",
+    "videoId": "videoFirstId22",
+    "errorId": "videoFirstErrorId22"
+},
+{
+    "cameraId": "13020000001310001074",
+    "videoId": "videoFirstId23",
+    "errorId": "videoFirstErrorId23"
+},
+{
+    "cameraId": "13020000001310001075",
+    "videoId": "videoFirstId24",
+    "errorId": "videoFirstErrorId24"
+},
+{
+    "cameraId": "13020000001310001076",
+    "videoId": "videoFirstId25",
+    "errorId": "videoFirstErrorId25"
+},
+{
+    "cameraId": "13020000001310001077",
+    "videoId": "videoFirstId26",
+    "errorId": "videoFirstErrorId26"
+},
+{
+    "cameraId": "13020000001310001078",
+    "videoId": "videoFirstId27",
+    "errorId": "videoFirstErrorId27"
+},
+{
+    "cameraId": "13020000001310001079",
+    "videoId": "videoFirstId28",
+    "errorId": "videoFirstErrorId28"
+},
+{
+    "cameraId": "13020000001310001080",
+    "videoId": "videoFirstId29",
+    "errorId": "videoFirstErrorId29"
+},
+{
+    "cameraId": "13020000001310001081",
+    "videoId": "videoFirstId30",
+    "errorId": "videoFirstErrorId30"
+},
+{
+    "cameraId": "13020000001310001082",
+    "videoId": "videoFirstId31",
+    "errorId": "videoFirstErrorId31"
+},
+{
+    "cameraId": "13020000001310001083",
+    "videoId": "videoFirstId32",
+    "errorId": "videoFirstErrorId32"
+}]                  
+                </textarea>
+                <select id="screenNum" onchange="screenNumChange()"  value="1">
+                    <option value="1" selected>1画面</option>
+                    <option value="4">4画面</option>
+                    <option value="9">9画面</option>
+                    <option value="16">16画面</option>
+                    <option value="32">32画面</option>
+                </select>
+                <button style="width:20px;padding:0;margin:0;" id="multiPlayOperate" class="btn">执行</button>            
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-title">视频回放：</div>
+            <font size="2" color=red>demo使用第一个窗口测试</font>
+            <div class="item">
+                <label >回放相关参数：</label>
+                <textarea id="playParam" type="text" style="width:310px;height:200px;">
+{
+    "cameraId": "32011500001310000002",
+    "videoId": "videoFirstId1",
+    "errorId": "videoFirstErrorId1",
+    "startTime": "2023-06-14 16:11:48",
+    "endTime": "2023-06-14 16:16:34",
+    "storeId":"000000010003",
+    "forward":0
+}
+                </textarea>
+            </div>
+            <div class="item">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button style="width:20px;padding:0;margin:0;" id="startPreviewBack" class="btn">回放预览</button>    
+                <button style="width:20px;padding:0;margin:0;" id="playbackPause" class="btn">回放暂停</button>  
+                <button style="width:20px;padding:0;margin:0;" id="playbackContinue" class="btn">回放继续</button>   
+            </div>
+            <div class="item">
+                <select id="playbackRateValue"  value="0">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    <option value="8">8</option>
+                    <option value="16">16</option>
+                    <option value="0.5">1/2</option>
+                    <option value="0.25">1/4</option>
+                    <option value="0.125">1/8</option>
+                </select>
+                <button style="width:20px;padding:0;margin:0;" id="playbackRate" class="btn">倍速播放</button>   
+            </div>
+            <div class="item">
+                <span>进度百分比0-1</span>
+                <input id="seekPercent" type="text" value="" style="width:40px;">
+                <button style="width:20px;padding:0;margin:0;" id="seekPlay" class="btn">跳播</button>   
+            </div>
+        </div>
+        <div class="module">
+            <div class="module-title">日志查看：</div>
+            <div class="item">
+                <textarea id="logResult" type="text" style="width:310px;height:300px;"></textarea>
+                <button style="width:20px;padding:0;margin:0;" id="clearLog" class="btn">清除</button>                  
+            </div>
+        </div>
+    </div>
+    <div style="width:950px;height:550px;">
+        <ul style="width:100%;height:100%;display: inline-block;padding-left: 1px;" id="ulContainer">
+        </ul>
+    </div> -->
+</body>
+
+    <!--必要的js文件引入-->
+<script>
+    // var baseWsIp = "172.16.20.208:8060";
+    var baseWsIp = "127.0.0.1:8060";
+    var timeSession = new Date().getTime();
+</script>
+<script src="lib/jquery-1.12.4.min.js"></script>
+<script src="lib/axios.min.js"></script>
+<script src="lib/moment.js"></script>
+<script src="lib/mp4box.all.min.js"></script>
+<script src="lib/streamedianAACH264H265.min.js"></script>
+<script src="lib/js_md5.js"></script>
+<script src="lib/FileSaver.js"></script>
+<script src="lib/zoomSizeChange.js"></script>
+<script src="lib/recorder.js"></script>
+<script src="lib/record-sdk.js"></script>
+<script src="zvvideo.js"></script>
+<script src="lib/pcm-player.min.js"></script>
+<script type="text/javascript">
+    //页面加载时创建播放实例初始化
+    $(window).load(function () {
+        initPlugin();
+    });
+
+   // ************视频组件初始化
+   function initPlugin() {   
+        if(window.zvvideo) {
+            oZVPlayer = window.zvvideo.player();
+        }       
+    }
+    
+    //声明公用变量
+    var oZVPlayer;
+    // var token = "";
+    // var sessionId = "";
+    var errorId = "videoFirstErrorId1"
+    var videoFirstId = "videoFirstId1"
+    var voiceWs
+    const playButton = document.getElementById('playIcon')
+    const stopButton = document.getElementById('stopIcon')
+
+    $("#startBut").click(function () {
+        const paramsStr = window.location.search
+        const obj = new URLSearchParams(paramsStr)
+        let starttime = obj.get('starttime') || ''// list
+        let endtime = obj.get('endtime') || '' // list
+        console.log('====starttime', starttime, endtime)
+        var cameraIndexCode  = starttime ?  '3200000001-1-admin-root123456-hik-ipc' : '3200000001';     //获取输入的监控点编号值，必填
+        var videoId = videoFirstId
+        if (oZVPlayer) {
+            var params = {
+                cameraId: cameraIndexCode, // 必填
+                videoId: videoId, // 必填
+                errorId: errorId,
+                startTime: starttime,
+                endTime: endtime,
+            }
+            var videoPromise = oZVPlayer.play(params,(res) => {
+                console.log('log==', res)
+                document.getElementById('startBut').style.display = 'none'
+            })
+
+            var videoDom = document.getElementById(videoId);  
+                    if(videoDom) {
+                        videoDom.prom = videoPromise
+                    }
+        }
+    })
+
+    function playVoice(){
+        var socketURL = 'ws://'+baseWsIp+'/ws';
+        const paramsStr = window.location.search
+        const obj = new URLSearchParams(paramsStr)
+        let starttime = obj.get('starttime') || ''// list
+        let endtime = obj.get('endtime') || '' // list
+        console.log('====starttime', starttime, endtime)
+        var cameraIndexCode  = starttime ?  '3200000001-1-admin-root123456-hik-ipc' : '3200000001';     //获取输入的监控点编号值，必填
+        var player = new PCMPlayer({
+                encoding: '16bitInt',
+                channels: 1,
+                sampleRate: 16000,
+                flushingTime: 100,
+        });
+        player.volume(1)
+        voiceWs = new WebSocket(socketURL);
+        voiceWs.onopen = function (params) {
+            playButton.style.display = 'none';
+            stopButton.style.display = 'block'
+                console.log('客户端连接成功')
+                voiceWs.send(JSON.stringify(
+                    {
+                        "deviceID": cameraIndexCode,
+                        "sessionID": 'audio-'+timeSession,
+                        "startTime": starttime,   
+                        "endTime": endtime,
+                        "codecParam":"0",
+                        "streamParam":"1",
+                        "transcodeParam":"1",
+                        "dataSourceParam":"0",
+                        "fromNVR": starttime ? '1' : '0'
+                    }	
+                ))
+            };
+            voiceWs.binaryType = 'arraybuffer';
+            voiceWs.addEventListener('message',function(event) {
+                var data = new Uint8Array(event.data);
+                player.feed(data);
+            });
+            voiceWs.onclose = function(e){
+                playButton.style.display = 'block';
+                stopButton.style.display = 'none'
+                console.log('=====close')
+                voiceWs = null;
+            }
+    }
+    function stopVoice(){
+        voiceWs.close()
+    }
+</script>
+<!-- <script type="text/javascript">
+    //页面加载时创建播放实例初始化
+    $(window).load(function () {
+        initPlugin();
+        initScreen()
+        window.addEventListener('resize',function(e){
+            if(isWholeFull) {
+                exitWholeFullFun()
+            }
+        })
+    });
+
+    //声明公用变量
+    // var hls = new Hls();
+    var isWholeFull = false;
+    var logMsg = "";
+    var sendBeatToaken = null;
+    var initCount = 0;
+    var pubKey = '';
+    var oZVPlayer;
+    // var token = "";
+    // var sessionId = "";
+    var errorId = "videoFirstErrorId1"
+    var videoFirstId = "videoFirstId1"
+    var wholeScreenId = "ulContainer"
+    var storeId = "000000010003"
+    var forward = 0
+    var rate = 1
+    var openAudio = true
+    var videoArray = [
+    "videoFirstId1","videoFirstId2","videoFirstId3","videoFirstId4","videoFirstId5","videoFirstId6","videoFirstId7","videoFirstId8","videoFirstId9","videoFirstId10",
+    "videoFirstId11","videoFirstId12","videoFirstId13","videoFirstId14","videoFirstId15","videoFirstId16","videoFirstId17","videoFirstId18","videoFirstId19","videoFirstId20",
+    "videoFirstId21","videoFirstId22","videoFirstId23","videoFirstId24","videoFirstId25","videoFirstId26","videoFirstId27","videoFirstId28","videoFirstId29","videoFirstId30",
+    "videoFirstId31","videoFirstId32"
+    ]
+    
+        // var cameraId = "32011500001310000005" // 声音 222环境 voice摄像头 10.72.96.155  "14000000001310000034"
+        // var cameraId = "32011500001310000011" // 云控 222环境 98.71摄像头   "14020000001310000004"
+        // var cameraId = "14000000001310000016" // 办公室
+        var cameraId = "3200000001"
+
+    // ***********授权
+        $("#login").click(function () {
+        var ip  = $("#serverIP").val();
+        var port  = $("#serverPort").val();
+        var user  = $("#userName").val();
+        var password  = $("#userPassword").val();
+
+        oZVPlayer.vcmsAuth(ip, port, user, password, function (res) {
+                // 日志信息
+                var myTextarea = document.getElementById('logResult');
+                myTextarea.value = formatMsg(res);
+                if(res.code == 200) {                   
+                    // 开启心跳
+                    startHeart(true)
+                }
+            });
+    });
+
+     // ***********退出
+    $("#logOut").click(function () {
+        if(oZVPlayer && oZVPlayer.vcmsLogout){        
+            oZVPlayer.vcmsLogout(function (res) {
+            stopAll()
+            startHeart(false)
+            // 日志信息
+            var myTextarea = document.getElementById('logResult');
+            myTextarea.value = formatMsg(res);
+        });
+        }
+    });
+
+    
+    // ********************清除日志
+    $("#clearLog").click(function () {
+        var myTextarea = document.getElementById('logResult');
+        myTextarea.value = "";
+        logMsg = "";
+    });
+
+    // ******************多画面播放
+    $("#multiPlayOperate").click(function () {
+        var paramsStr  = $("#multiPlayParam").val();     //获取输入的监控点编号值，必填
+        var arr = JSON.parse(paramsStr);
+        var sel = document.getElementById("screenNum");
+        var selectedId = sel.selectedIndex;
+        var screenValue = sel.options[selectedId].value;
+        var dataLen = arr.length
+        // 数据多于画面数
+        if(dataLen > screenValue) {
+            arr = arr.splice(0, Number(screenValue))
+        }
+         // 日志信息
+        var myTextarea = document.getElementById('logResult');
+        myTextarea.value = formatMsg("多画面播放操作");
+
+        // if (oZVPlayer) {
+        //     for (var i = 0; i < arr.length; i++) {     
+        //         (function (i) {      
+        //             var item = arr[i];
+        //             oZVPlayer.play(item, function (res) {
+        //                 // 日志信息
+        //                 var myTextarea = document.getElementById('logResult');
+        //                 if(res && res.message) {
+        //                     myTextarea.value = formatMsg(res.message);
+        //                 } else {
+        //                     myTextarea.value = formatMsg(res || "状态异常");
+        //                 }
+        //             })
+        //         }(i))   
+        //     }
+        // }
+        if (oZVPlayer) {
+            for (var i = 0; i < arr.length; i++) {
+                    var item = arr[i];
+                    const videoPromise = oZVPlayer.play(item, function (res) {
+                        // 日志信息
+                        // var myTextarea = document.getElementById('logResult');
+                        // if(res && res.message) {
+                        //     myTextarea.value = formatMsg(res.message);
+                        // } else {
+                        //     myTextarea.value = formatMsg(res || "状态异常");
+                        // }
+                    })
+                    
+                    var videoDom = document.getElementById(item.videoId);  
+                        if(videoDom) {
+                            videoDom.prom = videoPromise
+                        }
+                    
+            }
+        }
+    });
+
+    // ******************预览
+        $("#startPreview").click(function () {
+        var cameraIndexCode  = $("#cameraIndexCode").val();     //获取输入的监控点编号值，必填
+        var videoId = videoFirstId
+        if (oZVPlayer) {
+            var params = {
+                cameraId: cameraIndexCode, // 必填
+                videoId: videoId, // 必填
+                errorId: errorId
+            }
+            var videoPromise = oZVPlayer.play(params, function (res) {
+                // 日志信息
+                var myTextarea = document.getElementById('logResult');
+                if(res && res.message) {
+                    myTextarea.value = formatMsg(res.message);
+                } else {
+                    myTextarea.value = formatMsg(res || "状态异常");
+                }
+            })
+
+            var videoDom = document.getElementById(videoId);  
+                    if(videoDom) {
+                        videoDom.prom = videoPromise
+                    }
+        }
+    });
+
+      // ******************回放预览
+      $("#startPreviewBack").click(function () {
+            var paramsStr = $("#playParam").val();
+            var params = JSON.parse(paramsStr);
+
+            if (oZVPlayer) {
+                oZVPlayer.playBack(params, function(res) {
+                     showLog(res)
+                })
+            }
+    });
+
+    // *************PTZ操作
+    $("#ptzOperate").click(function () {
+            var paramsStr = $("#ptzParam").val();
+            var params = JSON.parse(paramsStr);
+            var sel = document.getElementById("ptzType");       
+            var selectedId = sel.selectedIndex;        
+            var v = sel.options[selectedId].value;
+            if (oZVPlayer) {
+                if(v == 1) { // ptz权限申请
+                    if(!params.cameraId || !params.type) {
+                        showLog("有必填参数未赋值，请检查cameraId、type！")
+                        return
+                    }
+                    oZVPlayer.ptzControlApply(params.cameraId,Number(params.type), function (res) {
+                        showLog(res)
+                })
+                } else if(v == 2) { // ptz控制
+                    if(!params.cameraId || !params.num) {
+                        showLog("有必填参数未赋值，请检查cameraId、num！")
+                        return
+                    }
+                    oZVPlayer.ptzControl(params.cameraId, Number(params.num), params.isOpen, params.controlSpeed, function (res) {
+                        showLog(res)
+                })
+                }
+            }
+    });
+
+    // 显示日志信息
+    function showLog(res) {
+        var myTextarea = document.getElementById('logResult');
+        myTextarea.value = formatMsg(res);
+        // if(res && res.message) {
+        //     myTextarea.value = formatMsg(res.message);
+        // } else {
+        //     myTextarea.value = formatMsg(res || "状态异常");
+        // }
+    }
+
+    // *************回放暂停
+       $("#playbackPause").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+            oZVPlayer.pause(videoId, true);
+        }
+       });
+
+        // *************回放继续
+        $("#playbackContinue").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+            oZVPlayer.pause(videoId, false);
+        }
+        });
+
+        // *************回放倍速
+        $("#playbackRate").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+            var value = Number($("#playbackRateValue").val());
+            oZVPlayer.rate(videoId, value);
+        }
+        });
+
+        // *************跳播
+        $("#seekPlay").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+            var percent =  Number($("#seekPercent").val());
+            var paramsStr = $("#playParam").val();
+            var params = JSON.parse(paramsStr);
+            if(params && params.startTime && params.endTime) {
+                var startTime = params.startTime
+                var endTime = params.endTime
+                oZVPlayer.seek(videoId, percent, startTime, endTime);
+            }
+
+        }
+        });
+
+     // *************停止全部预览
+    $("#stopAllPreview").click(function () {
+        stopAll()    
+        // 日志信息
+        var myTextarea = document.getElementById('logResult');
+        myTextarea.value = formatMsg("停止操作");
+    });
+
+    // // *************开始录制
+    // $("#recordStart").click(function () {
+    //     if(oZVPlayer) {
+    //         var videoId = videoFirstId
+    //         oZVPlayer.recordVideo(videoId, true);
+    //          // 日志信息
+    //     var myTextarea = document.getElementById('logResult');
+    //     myTextarea.value = formatMsg("录制功能已开启");
+    //     }
+    // });
+
+    // // *************停止录制
+    // $("#recordEnd").click(function () {
+    //     if(oZVPlayer) {
+    //         var videoId = videoFirstId
+    //         oZVPlayer.recordVideo(videoId, false);
+    //         // 日志信息
+    //         var myTextarea = document.getElementById('logResult');
+    //         myTextarea.value = formatMsg("录制完成");
+    //     }
+    // });
+
+    // *************开始录制新的
+    $("#recordStartNew").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+            var videoCom = document.getElementById(videoId);
+            // 日志信息
+            var myTextarea = document.getElementById('logResult');
+            if(videoCom.playState != "Play") {
+                myTextarea.value = formatMsg("请先播放视频！");
+            } else {
+                oZVPlayer.recordVideoNew(videoId, true);
+                myTextarea.value = formatMsg("录制功能开启");
+            }
+        }
+    });
+
+    // *************停止录制新的
+    $("#recordEndNew").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+            var videoCom = document.getElementById(videoId);
+            // 日志信息
+            var myTextarea = document.getElementById('logResult');
+            if(videoCom.playState != "Play") {
+                myTextarea.value = formatMsg("请先播放视频！");
+            } else {
+                oZVPlayer.recordVideoNew(videoId, false);
+                myTextarea.value = formatMsg("录制功能关闭");
+            }
+        }
+    });
+
+    // *************截图
+    $("#screenShot").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+            var videoCom = document.getElementById(videoId);
+            // 日志信息
+            var myTextarea = document.getElementById('logResult');
+            if(videoCom.playState != "Play") {
+            myTextarea.value = formatMsg("请先播放视频！");
+            } else {
+
+                oZVPlayer.screenShot(videoId);
+                myTextarea.value = formatMsg("截图完成");
+            }
+        }
+    });
+    
+
+    // *************主码流
+    $("#mainStream").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+
+            // 日志信息
+            var videoCom = document.getElementById(videoId);
+            var myTextarea = document.getElementById('logResult');
+            if(videoCom.playState != "Play") {
+                myTextarea.value = formatMsg("请先播放视频！");
+                return
+            }
+
+            oZVPlayer.streamChange(videoId, true);
+            // 日志信息
+            // var myTextarea = document.getElementById('logResult');
+            myTextarea.value = formatMsg("开启主码流");
+        }
+    });
+
+    // *************子码流
+    $("#subStream").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+
+            // 日志信息
+            var videoCom = document.getElementById(videoId);
+            var myTextarea = document.getElementById('logResult');
+            if(videoCom.playState != "Play") {
+                myTextarea.value = formatMsg("请先播放视频！");
+                return
+            }
+
+            oZVPlayer.streamChange(videoId, false);
+            // 日志信息
+            // var myTextarea = document.getElementById('logResult');
+            myTextarea.value = formatMsg("开启子码流");
+        }
+    });
+
+    // *************音频开启
+    $("#openVoice").click(function () {
+        var socketURL = 'ws://127.0.0.1:8060/ws';
+        var player = new PCMPlayer({
+                encoding: '16bitInt',
+                channels: 1,
+                sampleRate: 16000,
+                flushingTime: 100,
+        });
+        player.volume(1)
+        var ws = new WebSocket(socketURL);
+        ws.onopen = function (params) {
+                console.log('客户端连接成功')
+                ws.send(JSON.stringify(
+                    {"deviceID":"3200000001","sessionID":"audio-safdfdsvcvdfvcxbghikighf","startTime":"","endTime":"","codecParam":"1","streamParam":"l","transcodeParam":"1","dataSourceParam":"0","frOmNVR":"0"}	
+                ))
+            };
+            ws.binaryType = 'arraybuffer';
+            ws.addEventListener('message',function(event) {
+                console.log('-----get',  event)
+                var data = new Uint8Array(event.data);
+                player.feed(data);
+            });
+            ws.onclose = function(e){
+                console.log('=====close')
+            }
+        // if(oZVPlayer) {
+        //     var videoId = videoFirstId
+
+        //     // 日志信息
+        //     var videoCom = document.getElementById(videoId);
+        //     var myTextarea = document.getElementById('logResult');
+        //     if(videoCom.playState != "Play") {
+        //         myTextarea.value = formatMsg("请先播放视频！");
+        //         return
+        //     }
+
+        //     oZVPlayer.switchVoice(videoId, true);
+        //      // 日志信息
+        //     //  var myTextarea = document.getElementById('logResult');
+        //     myTextarea.value = formatMsg("音频开启");
+        // }
+    });
+
+    // *************音频关闭
+    $("#closeVoice").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+
+            // 日志信息
+            var videoCom = document.getElementById(videoId);
+            var myTextarea = document.getElementById('logResult');
+            if(videoCom.playState != "Play") {
+                myTextarea.value = formatMsg("请先播放视频！");
+                return
+            }
+
+            oZVPlayer.switchVoice(videoId, false);
+            // 日志信息
+            // var myTextarea = document.getElementById('logResult');
+            myTextarea.value = formatMsg("音频关闭");
+        }
+    });
+
+    // *************双向语音 开启
+    $("#openTalk").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+
+            // 日志信息
+            var videoCom = document.getElementById(videoId);
+            var myTextarea = document.getElementById('logResult');
+            if(videoCom.playState != "Play") {
+                myTextarea.value = formatMsg("请先播放视频！");
+                return
+            }
+
+            var cameraIndexCode  = $("#cameraIndexCode").val();
+            oZVPlayer.openTalk(cameraIndexCode, function (res) {
+                // 日志信息
+                // var myTextarea = document.getElementById('logResult');
+                myTextarea.value = formatMsg(res);
+            });
+        }
+    });
+
+    // *************双向语音 关闭
+    $("#closeTalk").click(function () {
+        if(oZVPlayer) {
+            var videoId = videoFirstId
+
+            // 日志信息
+            var videoCom = document.getElementById(videoId);
+            var myTextarea = document.getElementById('logResult');
+            if(videoCom.playState != "Play") {
+                myTextarea.value = formatMsg("请先播放视频！");
+                return
+            }
+
+            var cameraIndexCode  = $("#cameraIndexCode").val();
+            oZVPlayer.closeTalk(cameraIndexCode, function (res) {
+                // 日志信息
+                // var myTextarea = document.getElementById('logResult');
+                myTextarea.value = formatMsg(res);
+            });
+        }
+    });
+
+    // *************整体全屏
+    $("#wholeFull").click(function () {
+        if(oZVPlayer) {
+            var screenId = wholeScreenId
+            var videoId = videoFirstId
+            oZVPlayer.videoFullScreen(screenId, videoId);
+
+            var sel = document.getElementById("screenNum");
+            var selectedId = sel.selectedIndex;
+            var num = sel.options[selectedId].value;
+            setTimeout(() => {
+                for (let i = 0; i < num; i++) {
+                    let idx = i + 1
+                    let videoString = "videoFirstId" + idx
+                    let quarterString = "vidoeContainer" + idx
+                    zoomSizeChange(quarterString, videoString)
+                }
+                // 日志信息
+                    var myTextarea = document.getElementById('logResult');
+                    myTextarea.value = formatMsg("整体全屏操作");
+                    isWholeFull = true
+                }, 200)
+
+        }
+    });
+
+    // *************退出整体全屏
+    $("#exitWholeFull").click(function () {
+        exitWholeFullFun()
+    });
+
+    function exitWholeFullFun() {
+        if(oZVPlayer) {
+            var screenId = wholeScreenId
+            var videoId = videoFirstId
+            oZVPlayer.exitVideoFullscreen(screenId, videoId);
+            isWholeFull = false
+
+            var sel = document.getElementById("screenNum");
+            var selectedId = sel.selectedIndex;
+            var num = sel.options[selectedId].value;
+            setTimeout(() => {
+                for (let i = 0; i < num; i++) {
+                    let idx = i + 1
+                    let videoString = "videoFirstId" + idx
+                    let quarterString = "vidoeContainer" + idx
+                    zoomSizeChange(quarterString, videoString)
+                }
+                    // 日志信息
+                    var myTextarea = document.getElementById('logResult');
+                    myTextarea.value = formatMsg("退出全屏操作");
+                }, 200)
+        }
+    }
+    
+
+    // ************视频组件初始化
+    function initPlugin() {
+        var ip = "10.45.161.70" //"10.72.76.222"
+        var port = "8099"
+        var user = "admin"
+        var password = "888888"
+        var seekDefault = 0.5
+
+
+        $("#serverIP").val(ip)
+        $("#serverPort").val(port)
+        $("#userName").val(user)
+        $("#userPassword").val(password)
+        $("#cameraIndexCode").val(cameraId)
+        $("#seekPercent").val(seekDefault)       
+        if(window.zvvideo) {
+            oZVPlayer = window.zvvideo.player();
+        }       
+    }
+    
+    function formatMsg(msg) {
+        var fMsg = ""
+        if(typeof msg ==="object") {
+            fMsg = JSON.stringify(msg);
+        } else {
+            fMsg = msg
+        }
+        var date = new Date();
+        var datestr = moment(date).format("YYYY-MM-DD HH:mm:ss");
+        var itemMsg = datestr + " " + fMsg + "\n";
+        logMsg = logMsg + itemMsg;
+        return logMsg
+    }
+
+    function stopAll() {
+        if(oZVPlayer) {
+            for(var i = 0; i< videoArray.length; i++)
+             {
+                let vid = videoArray[i];
+                var video = document.getElementById(vid);
+                if(video && video.playState === "Play") {
+                    oZVPlayer.stop(vid);
+                } else {
+                    if(video && video.errorId) {
+                    // 取消显示信息
+                        var errorId = video.errorId
+                        if(document.getElementById(errorId)) {
+                            document.getElementById(errorId).innerHTML = '' // 已停止
+                        }
+                    }
+                }
+                if(video && video.prom) {
+                    video.prom.abort(); // 取消视频播放请求
+                }
+            }
+        }
+    }
+
+    function  startHeart(val) {
+        if(oZVPlayer){
+            if (val) {
+                if(!sendBeatToaken) {
+                    sendBeatToaken = setInterval(() => {
+                        oZVPlayer.heartbeat();
+                    }, 5000)
+                }
+            } else {
+                clearInterval(sendBeatToaken);
+                sendBeatToaken = null;
+            }
+        }
+      }
+
+    function screenNumChange() {
+        // 切换屏幕前，先关闭所有
+        stopAll()
+        initScreen()
+         // 日志信息
+        var myTextarea = document.getElementById('logResult');
+        myTextarea.value = formatMsg("分屏操作，关闭全部视频！");   
+    }
+
+    function initScreen() {
+        // var sel = document.getElementById("screenNum");
+        // var selectedId = '1';
+        var v = 1;
+        var htmlStr = ""
+        var cnt = 1
+        var videocss = 'container-module1'
+        if(v == 1){
+            cnt = 1
+            videocss = 'container-module1'
+
+        } else if (v == 4) {
+            cnt = 4
+            videocss = 'container-module4'
+
+        } else if (v == 9) {
+            cnt = 9
+            videocss = 'container-module9'
+
+        } else if (v == 16) {
+            cnt = 16
+            videocss = 'container-module16'
+            
+        } else if (v == 32) {
+            cnt = 32
+            videocss = 'container-module32'
+
+        }
+        for(var i = 0; i< cnt; i++)
+        {
+            var vid = "videoFirstId" + (i+1)
+            var eid = "videoFirstErrorId" + (i+1)
+            let liId = "vidoeContainer" + (i+1)
+            // htmlStr = htmlStr + "<li id=" +liId + " class="+ videocss +"><video id=" + vid + " autoplay style='width:100%;height:100%;'> <source type='application/x-rtsp'></video><div id=" + eid + " class='state-module'></div></li>"
+            htmlStr = htmlStr + "<li id=" +liId + " class="+ videocss +"><video id=" + vid + " autoplay style='width:100%;height:100%;object-fit: fill;'></video><div id=" + eid + " class='state-module'></div></li>"
+        
+        }
+        $("#ulContainer").html(htmlStr)
+    }
+
+    function UpdatePlayParamValue() {
+        var sel = document.getElementById("ptzType");
+        var selectedId = sel.selectedIndex;
+        var v = sel.options[selectedId].value;
+        var cameraId = $("#cameraIndexCode").val()
+        if(v == 1) {
+            // 权限控制
+            var result = JSON.stringify({
+                "cameraId": cameraId, 
+                "type": "1"
+            })
+            $("#ptzParam").val(result);
+
+        } else if(v == 2) {
+            // 功能控制
+            var result = JSON.stringify({
+                "cameraId": cameraId, 
+                "num": "24",
+                "isOpen": "0",
+                "controlSpeed": "50"
+            })
+            $("#ptzParam").val(result);
+        }
+    }
+</script> -->
+ </html>

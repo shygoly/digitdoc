@@ -1,0 +1,44 @@
+{
+  "name": "digitdoc",
+  "version": "1.0.0",
+  "description": "数字人医生系统 - Electron + React + wsplayer",
+  "main": "dist-electron/main/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:vite\" \"npm:dev:electron\"",
+    "dev:vite": "vite",
+    "dev:electron": "tsc -p main/tsconfig.json && tsc -p preload/tsconfig.json && wait-on https://localhost:5173 && cross-env VITE_DEV_SERVER_URL=https://localhost:5173 electron dist-electron/main/main.js",
+    "build": "tsc -p main/tsconfig.json && vite build && electron-builder",
+    "build:vite": "vite build",
+    "build:electron": "tsc -p main/tsconfig.json && electron-builder",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "vite",
+    "webrtc",
+    "wsplayer"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.8",
+    "wait-on": "^8.0.1"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "socket.io-client": "^4.8.1"
+  }
+}
